@@ -63,3 +63,7 @@ checksed:
 checkulimit:
 	echo "Checking ulimit"
 	ulimit -a > /dev/null
+
+checkbc:
+	echo "Checking bc"
+	bc -help >/dev/null
