@@ -58,7 +58,7 @@ checkdiff:
 
 checksed:
 	echo "Checking sed"
-	echo "A" |sed  > /dev/null
+	sed --version
 
 
 checkulimit:
