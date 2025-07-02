@@ -1,13 +1,22 @@
-SHELL := /bin/bash
 ROOTDIR=$(realpath $(dir $(firstword $(MAKEFILE_LIST))))
+PACKAGES_FILE=${ROOTDIR}/mint_packages.txt
 
 .PHONY: all clean
 
+all: install checks
 
 
-all: checkbash checkfind checktree checkvim checkcode checksubl checkgedit checkgrep checksponge checktee checkdiff checksed checkulimit 
+install: install_packages
+	@echo "Installing packages from ${PACKAGES_FILE}"
+
+checks: checkbash checkfind checktree checkvim checkgrep checksponge checktee checkdiff checksed checkulimit 
 
 	echo "All checked"
+
+install_packages:
+	sudo apt update
+	sudo apt upgrade -y
+	sudo xargs -a ${PACKAGES_FILE} apt install -y
 
 checkbash:
 	echo "Checking bash"
@@ -25,14 +34,6 @@ checktree:
 checkvim:
 	echo "Checking vim"
 	vim --version 
-
-checkcode:
-	echo "Checking vscode"
-	code --version > /dev/null
-
-checksubl:
-	echo "Checking sublime text"
-	subl --version > /dev/null
 
 checkgedit:
 	echo "Checking gedit"
